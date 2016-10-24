@@ -12,13 +12,7 @@ RUN apt-get update && \
     libmcrypt-dev \
     libpng12-dev \
     libxslt1-dev \
-    libxml2-dev.
-
-RUN apt-get install wget && \
-    wget -O mysql-apt-config.deb https://dev.mysql.com/get/mysql-apt-config_0.3.7-1debian8_all.deb && \
-    dpkg -i mysql-apt-config.deb && \
-    sudo apt-get update && \
-    sudo apt-get install -y mysql-client-5.6 && \
+    libxml2-dev && \
     rm -r /var/lib/apt/lists/*
 
 # PHP Extensions (curl, mbstring, hash, simplexml, xml, json, iconv are already installed in php:7.0.11 image)
@@ -45,11 +39,10 @@ ENV COMPOSER_HOME /root/composer
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    composer selfupdate
+	composer selfupdate
 
 # Goto temporary directory.
 WORKDIR /tmp
 
-RUN php -v
-RUN mysql -V
+RUN php --version
 RUN composer --version
