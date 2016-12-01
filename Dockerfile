@@ -5,6 +5,7 @@ MAINTAINER Kamil Kijowski <kl.kijowski@gmail.com>
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     openssh-client \
+    git-core \
     libcurl4-openssl-dev \
     libfreetype6-dev \
     libicu-dev \
