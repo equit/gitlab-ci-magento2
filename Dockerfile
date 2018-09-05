@@ -32,11 +32,17 @@ RUN docker-php-ext-configure \
     soap \
     bcmath
 
-RUN curl -sS https://getcomposer.org/installer | \
-    php -- \
-      --install-dir=/usr/local/bin \
-      --filename=composer \
-      --version=1.1.2
+RUN echo "memory_limit=-1" > $PHP_INI_DIR/conf.d/memory-limit.ini
+RUN echo "date.timezone=Europe/Warsaw" > $PHP_INI_DIR/conf.d/date_timezone.ini
+
+VOLUME /root/composer
+
+ENV COMPOSER_HOME /root/composer
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+	composer selfupdate
+
+WORKDIR /tmp
 
 RUN curl -sL  https://deb.nodesource.com/setup_7.x | bash - && \
   apt-get install -y nodejs
