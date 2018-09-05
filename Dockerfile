@@ -1,4 +1,4 @@
-FROM php:7.0
+FROM php:7.1
 
 MAINTAINER Kamil Kijowski <kl.kijowski@gmail.com>
 
@@ -27,7 +27,8 @@ RUN docker-php-ext-install \
     pdo_mysql \
     soap \
     xsl \
-    zip
+    zip \
+    bcmath
 
 # PHP Configuration
 RUN echo "memory_limit=-1" > $PHP_INI_DIR/conf.d/memory-limit.ini
